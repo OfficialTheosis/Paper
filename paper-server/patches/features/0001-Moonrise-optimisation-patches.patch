@@ -25720,7 +25720,7 @@ index d930750ae2ccfe72ff4fa574a49a024cb5f67baa..2c6d0e17fe28751c38cf8186ba869aac
      }
  
 diff --git a/net/minecraft/server/level/ServerChunkCache.java b/net/minecraft/server/level/ServerChunkCache.java
-index 4bf684986cadfa25ae475be4d54f0359e94b9e11..75fe6e026e3f91b66dcf5b97a86491d5277f7661 100644
+index 6d6ccaa971cb626f25a2c9f7068a415e2b1c71e0..79dd0e222658bb3f2bc02afe72ce00c21fb6399f 100644
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
 @@ -55,7 +55,7 @@ import net.minecraft.world.level.storage.LevelStorageSource;
@@ -26136,7 +26136,7 @@ index 4bf684986cadfa25ae475be4d54f0359e94b9e11..75fe6e026e3f91b66dcf5b97a86491d5
          if (flag) {
              profiler.popPush("customSpawners");
              this.level.tickCustomSpawners(this.spawnEnemies);
-@@ -519,22 +584,25 @@ public class ServerChunkCache extends ChunkSource {
+@@ -519,7 +584,7 @@ public class ServerChunkCache extends ChunkSource {
      private void tickSpawningChunk(LevelChunk chunk, long timeInhabited, List<MobCategory> spawnCategories, NaturalSpawner.SpawnState spawnState) {
          ChunkPos pos = chunk.getPos();
          chunk.incrementInhabitedTime(timeInhabited);
@@ -26144,6 +26144,9 @@ index 4bf684986cadfa25ae475be4d54f0359e94b9e11..75fe6e026e3f91b66dcf5b97a86491d5
 +        if (true) { // Paper - rewrite chunk system
              this.level.tickThunder(chunk);
          }
+ 
+@@ -541,17 +606,20 @@ public class ServerChunkCache extends ChunkSource {
+         // Paper end - disable mob spawning within configured radius around spawn chunk
  
          if (!spawnCategories.isEmpty()) {
 -            if (this.level.canSpawnEntitiesInChunk(pos)) {
@@ -26167,7 +26170,7 @@ index 4bf684986cadfa25ae475be4d54f0359e94b9e11..75fe6e026e3f91b66dcf5b97a86491d5
      }
  
      @Override
-@@ -592,17 +660,11 @@ public class ServerChunkCache extends ChunkSource {
+@@ -609,17 +677,11 @@ public class ServerChunkCache extends ChunkSource {
      }
  
      public CompletableFuture<?> addTicketAndLoadWithRadius(TicketType ticketType, ChunkPos chunkPos, int radius) {
@@ -26190,7 +26193,7 @@ index 4bf684986cadfa25ae475be4d54f0359e94b9e11..75fe6e026e3f91b66dcf5b97a86491d5
      }
  
      public void addTicketWithRadius(TicketType ticketType, ChunkPos chunkPos, int radius) {
-@@ -652,6 +714,12 @@ public class ServerChunkCache extends ChunkSource {
+@@ -669,6 +731,12 @@ public class ServerChunkCache extends ChunkSource {
          this.chunkMap.setServerViewDistance(viewDistance);
      }
  
@@ -26203,7 +26206,7 @@ index 4bf684986cadfa25ae475be4d54f0359e94b9e11..75fe6e026e3f91b66dcf5b97a86491d5
      public void setSimulationDistance(int simulationDistance) {
          this.distanceManager.updateSimulationDistance(simulationDistance);
      }
-@@ -736,18 +804,14 @@ public class ServerChunkCache extends ChunkSource {
+@@ -753,18 +821,14 @@ public class ServerChunkCache extends ChunkSource {
  
          @Override
          public boolean pollTask() {

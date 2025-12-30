@@ -516,6 +516,7 @@ public class WorldConfiguration extends ConfigurationPart {
             map.put(EntityType.SMALL_FIREBALL, -1);
         });
         public boolean flushRegionsOnSave = false;
+        public int mobSpawningDisableRadiusAroundSpawnChunk = -1;
 
         @PostProcess
         private void postProcess() {
