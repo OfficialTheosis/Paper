@@ -100,6 +100,7 @@ public class WorldConfiguration extends ConfigurationPart {
             public int maxBlockHeight = 64;
             public int updateRadius = 2;
             public boolean lavaObscures = false;
+            public int lavaObscureMaxHeight = 31;
             public boolean usePermission = false;
             public List<Block> hiddenBlocks = List.of(
                 //<editor-fold desc="Anti-Xray Hidden Blocks" defaultstate="collapsed">
@@ -523,6 +524,7 @@ public class WorldConfiguration extends ConfigurationPart {
             map.put(EntityTypes.SMALL_FIREBALL, -1);
         });
         public boolean flushRegionsOnSave = false;
+        public int mobSpawningDisableRadiusAroundSpawnChunk = -1;
 
         @PostProcess
         private void postProcess() {

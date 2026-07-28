@@ -23832,7 +23832,7 @@ index 9d9fa99ff7694a3356421df711c7b1443047b057..c79206e0eb455081f63cf4de2c974136
      }
  
 diff --git a/net/minecraft/server/MinecraftServer.java b/net/minecraft/server/MinecraftServer.java
-index 23e51ce53e9b1b4f52d49749c13ccaae539c4f0e..afe68487585e5fc2766a10bf69e085f51d498990 100644
+index 196f47bb89a49e4d053cabad62059836823e6c21..82eb863da02d58b7643cd1ebd6b2f642b3474c5d 100644
 --- a/net/minecraft/server/MinecraftServer.java
 +++ b/net/minecraft/server/MinecraftServer.java
 @@ -189,7 +189,7 @@ import net.minecraft.world.scores.ScoreboardSaveData;
@@ -26459,7 +26459,7 @@ index a701288146a1d7cd258faae69f959edf466ec71c..3509df9dd423b38d1ca3e4a420d1352a
      }
  
 diff --git a/net/minecraft/server/level/ServerChunkCache.java b/net/minecraft/server/level/ServerChunkCache.java
-index 229035e15113419080187263c7fa5e004a12c3f3..550b915d4ed457231605247c3e21844fed2f67b6 100644
+index 8cd6fe1837a57f95b74ab24659f4beea19dac94c..66b842fe7b638c367e5413882d14a8754316402f 100644
 --- a/net/minecraft/server/level/ServerChunkCache.java
 +++ b/net/minecraft/server/level/ServerChunkCache.java
 @@ -54,7 +54,7 @@ import net.minecraft.world.level.storage.SavedDataStorage;
@@ -26868,7 +26868,7 @@ index 229035e15113419080187263c7fa5e004a12c3f3..550b915d4ed457231605247c3e21844f
          if (doMobSpawning) {
              profiler.popPush("customSpawners");
              this.level.tickCustomSpawners(this.spawnEnemies);
-@@ -521,22 +591,25 @@ public class ServerChunkCache extends ChunkSource {
+@@ -521,7 +591,7 @@ public class ServerChunkCache extends ChunkSource {
      ) {
          ChunkPos chunkPos = chunk.getPos();
          chunk.incrementInhabitedTime(timeDiff);
@@ -26876,6 +26876,9 @@ index 229035e15113419080187263c7fa5e004a12c3f3..550b915d4ed457231605247c3e21844f
 +        if (true) { // Paper - rewrite chunk system
              this.level.tickThunder(chunk);
          }
+ 
+@@ -547,17 +617,20 @@ public class ServerChunkCache extends ChunkSource {
+         // Paper end - disable mob spawning within configured radius around spawn chunk
  
          if (!spawningCategories.isEmpty()) {
 -            if (this.level.canSpawnEntitiesInChunk(chunkPos)) {
@@ -26899,7 +26902,7 @@ index 229035e15113419080187263c7fa5e004a12c3f3..550b915d4ed457231605247c3e21844f
      }
  
      @Override
-@@ -594,19 +667,11 @@ public class ServerChunkCache extends ChunkSource {
+@@ -615,19 +688,11 @@ public class ServerChunkCache extends ChunkSource {
      }
  
      public CompletableFuture<?> addTicketAndLoadWithRadius(final TicketType type, final ChunkPos pos, final int radius) {
@@ -26924,7 +26927,7 @@ index 229035e15113419080187263c7fa5e004a12c3f3..550b915d4ed457231605247c3e21844f
      }
  
      public void addTicketWithRadius(final TicketType type, final ChunkPos pos, final int radius) {
-@@ -660,6 +725,12 @@ public class ServerChunkCache extends ChunkSource {
+@@ -681,6 +746,12 @@ public class ServerChunkCache extends ChunkSource {
          this.chunkMap.setServerViewDistance(newDistance);
      }
  
@@ -26937,7 +26940,7 @@ index 229035e15113419080187263c7fa5e004a12c3f3..550b915d4ed457231605247c3e21844f
      public void setSimulationDistance(final int simulationDistance) {
          this.distanceManager.updateSimulationDistance(simulationDistance);
      }
-@@ -739,18 +810,12 @@ public class ServerChunkCache extends ChunkSource {
+@@ -760,18 +831,12 @@ public class ServerChunkCache extends ChunkSource {
  
          @Override
          protected boolean pollTask() {
@@ -28432,7 +28435,7 @@ index a46b89895a9ce86b6f5fabd373a4e91919d88033..22b10500ef74694243a4fec40822bb54
          // Paper start - PlayerChunkLoadEvent
          if (io.papermc.paper.event.packet.PlayerChunkLoadEvent.getHandlerList().getRegisteredListeners().length > 0) {
 diff --git a/net/minecraft/server/network/config/PrepareSpawnTask.java b/net/minecraft/server/network/config/PrepareSpawnTask.java
-index af2509ed6ca1b9ed68c67bd682de3823ccb09088..d91d7d438dd79c64827de7cdfbaeb8c8b0896a48 100644
+index 3271c83bd103bea9b9ffcd6882b52896ea4da770..f6601bc30fa37a309923ea9883b04233f83b2c0b 100644
 --- a/net/minecraft/server/network/config/PrepareSpawnTask.java
 +++ b/net/minecraft/server/network/config/PrepareSpawnTask.java
 @@ -165,7 +165,7 @@ public class PrepareSpawnTask implements ConfigurationTask {

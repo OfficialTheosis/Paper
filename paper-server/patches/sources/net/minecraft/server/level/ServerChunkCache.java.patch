@@ -215,6 +215,34 @@
          } else {
              spawningCategories = List.of();
          }
+@@ -420,6 +_,27 @@
+             this.level.tickThunder(chunk);
+         }
+ 
++        // Paper start - disable mob spawning within configured radius around spawn chunk
++        int mobSpawningDisableRadiusAroundSpawnChunk = level.paperConfig().chunks.mobSpawningDisableRadiusAroundSpawnChunk;
++
++        if (mobSpawningDisableRadiusAroundSpawnChunk >= 0) {
++            BlockPos spawnBlockPos = level.serverLevelData.getRespawnData().pos();
++            ChunkPos spawnChunkPos = new net.minecraft.world.level.ChunkPos(spawnBlockPos.getX() >> 4, spawnBlockPos.getZ() >> 4);
++
++            int chunkPosX = chunkPos.x();
++            int chunkPosZ = chunkPos.z();
++            int spawnChunkPosX = spawnChunkPos.x();
++            int spawnChunkPosZ = spawnChunkPos.z();
++
++            if (chunkPosX <= spawnChunkPosX + mobSpawningDisableRadiusAroundSpawnChunk &&
++                chunkPosX >= spawnChunkPosX - mobSpawningDisableRadiusAroundSpawnChunk &&
++                chunkPosZ <= spawnChunkPosZ + mobSpawningDisableRadiusAroundSpawnChunk &&
++                chunkPosZ >= spawnChunkPosZ - mobSpawningDisableRadiusAroundSpawnChunk) {
++                return;
++            }
++        }
++        // Paper end - disable mob spawning within configured radius around spawn chunk
++
+         if (!spawningCategories.isEmpty()) {
+             if (this.level.canSpawnEntitiesInChunk(chunkPos)) {
+                 NaturalSpawner.spawnForChunk(this.level, chunk, spawnCookie, spawningCategories);
 @@ -561,7 +_,13 @@
  
      @Override
